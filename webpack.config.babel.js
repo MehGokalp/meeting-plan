@@ -1,7 +1,6 @@
 import path from 'path';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import { join } from 'path';
 
 const PROD = process.env.NODE_ENV == 'production';
 
@@ -17,7 +16,7 @@ export default {
 	},
 	devtool: PROD ? 'hidden-source-map' : 'source-map',
 	devServer: {
-		contentBase: join(__dirname, 'web'),
+		contentBase: path.resolve(__dirname, 'web'),
 		port: 8090,
 		host: '0.0.0.0',
 		stats: {

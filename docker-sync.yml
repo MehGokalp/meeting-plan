@@ -1,0 +1,6 @@
+version: "2"
+
+syncs:
+  php-sync:
+    notify_terminal: true
+    src: './'

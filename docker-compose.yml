@@ -1,0 +1,33 @@
+version: '3'
+services:
+  php:
+    image: nimmis/apache-php7
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - php-sync:/var/www/html/meeting-plan:nocopy
+    links:
+      - mysql
+#    networks:
+#      static-network:
+#        ipv4_address: 172.20.128.2
+  mysql:
+    image: mysql
+    ports:
+      - "3306"
+    volumes:
+      - /var/lib/mysql
+    environment:
+     - MYSQL_DATABASE=meeting_plan
+     - MYSQL_ROOT_PASSWORD=123456
+     - MYSQL_USER=symfony
+     - MYSQL_PASSWORD=123456
+volumes:
+  php-sync:
+    external: true
+#networks:
+#  static-network:
+#    ipam:
+#      config:
+#        - subnet: 172.20.0.0/16
