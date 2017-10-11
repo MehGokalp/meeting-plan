@@ -1,3 +1,4 @@
+import webpack from 'webpack';
 import path from 'path';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
@@ -7,8 +8,7 @@ const PROD = process.env.NODE_ENV == 'production';
 export default {
 	entry: [
 		'./app/Resources/public/js/app.jsx',
-		'./app/Resources/public/css/main.scss',
-		'./app/Resources/public/js/test.js'
+		'./app/Resources/public/css/main.scss'
 	],
 	output: {
 		filename: `js/app.js`,
@@ -49,7 +49,7 @@ export default {
 				include: [
 					path.resolve(__dirname, 'app/Resources/public/js')
 				],
-				test: /\.jsx?$/,
+				test: /\.jsx$/,
 				query: {
 					presets: ['env', 'react']
 				}
@@ -58,7 +58,17 @@ export default {
 	},
 	plugins: (function(){
 		let plugins = [
-			new ExtractTextPlugin('css/[name].css')
+			new ExtractTextPlugin('css/[name].css'),
+			new webpack.ProvidePlugin({
+				$: 'jquery',
+				jQuery: 'jquery',
+				'window.jQuery': 'jquery',
+				Popper: ['popper.js', 'default'],
+				// Bootstrap utils
+				Util: "exports-loader?Util!bootstrap/js/dist/util",
+				//For Bootstrap Navbar
+				Collapse: "exports-loader?Collapse!bootstrap/js/dist/collapse"
+			})
 		];
 
 		if(PROD){

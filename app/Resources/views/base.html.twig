@@ -7,6 +7,11 @@
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     </head>
     <body>
+        <section>
+            <header>
+                {% include ':Component:header.html.twig' %}
+            </header>
+        </section>
         <div class="container-fluid">
             <div class="row">
                 {% block body %}{% endblock %}
